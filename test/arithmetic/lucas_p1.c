@@ -7,7 +7,7 @@
 	} 
 
 #define LUCAS_TEST(test_name, filename, expected) \
-	void lucas_P1_##test_name##_test () { \
+	void lucas_p1_##test_name##_test () { \
 		int i, passed, output, D, tmp; \
 		uint64_t input, negQ; \
 		FILE *test_fp; \
@@ -35,17 +35,22 @@ skip_lucas: \
 
 LUCAS_TEST(pseudoprime, b217120, 1);
 LUCAS_TEST(strpseudo, b217255, 1);
+LUCAS_TEST(extrapseudo, b217719, 1);
 LUCAS_TEST(pseudob2345, a074773, 0);
 LUCAS_TEST(pseudob2, b001262, 0);
 LUCAS_TEST(primes, primes, 1);
 
+
 int main () 
 {
-	lucas_P1_pseudoprime_test();
-	lucas_P1_strpseudo_test();
-	lucas_P1_pseudob2345_test();
-	lucas_P1_pseudob2_test();
-	lucas_P1_primes_test();
+	lucas_p1_pseudoprime_test();  // Lucas pseudoprimes A217120
+	lucas_p1_strpseudo_test();    // Strong Lucas pseudoprimes A217255
+	lucas_p1_extrapseudo_test();  // Extra strong Lucas pseudoprimes A217719
+
+	lucas_p1_pseudob2345_test();
+	lucas_p1_pseudob2_test();
+
+	lucas_p1_primes_test();
 
 	return 0;
 }
