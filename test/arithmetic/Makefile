@@ -15,5 +15,5 @@ $(EXEF): %: %.c
 
 clean:
 	find . -type f -executable -delete
-	rm perf.data perf.data.old
+	rm -f perf.data perf.data.old
 

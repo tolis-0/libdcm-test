@@ -8,6 +8,8 @@
 #include <inttypes.h>
 
 
+#define  _to_string(x...) #x
+
 #define _print_type(type) "%" _print_type_##type
 #define _print_type_uint32_t PRIu32
 #define _print_type_uint64_t PRIu64
