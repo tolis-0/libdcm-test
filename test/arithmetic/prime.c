@@ -3,24 +3,26 @@
 #include <string.h>
 
 PRIME_TEST_DECLARATIONS(dc_prime);
+PRIME_PERFORMANCE_DECLARATIONS(dc_prime);
 
 int main(int argc, char **argv)
 {
-	int all = 0;
-	char str_all[] = "all";
-	if (argc > 1 && !strcmp(str_all, argv[1])) all = 1;
+	test_arguments_setup();
 
-	/* First 100,000 primes (oeis.org) */
-	dc_prime_set_test();      // Values 0 to 1299709
+	mandatory_tests {
+		dc_prime_set_test();      // Values 0 to 1299709
+		prime_specific_value_tests(dc_prime);
+		prime_other_tests(dc_prime);
+	}
 
-	/* The Twenty-sixth 1,000,000 Primes (primes.utm.edu) */
-	if (all) dc_prime_set26_test();    // Values 472882049 to 492876847
+	extra_tests {
+		dc_prime_set26_test();    // Values 472882049 to 492876847
+	}
 
-	/* same as Miller-Rabin */
-	prime_specific_value_tests(dc_prime);
-
-	/* Other prime sequences */
-	prime_other_tests(dc_prime);
+	perf_tests {
+		for (int i = 1; i <= 64; i++)
+			dc_prime_performance(100000, i);
+	}
 
 	return 0;
 }

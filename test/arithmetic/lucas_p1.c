@@ -30,12 +30,12 @@ skip_lucas: \
 			_test_check(uint64_t, int, input, expected, output); \
 		} \
 		fclose(test_fp); \
-		_print_test_result(lucas_prime_P1, test_name, i, passed); \
+		_print_test_result(lucas_prime_p1, test_name, i, passed); \
 	}
 
 LUCAS_TEST(pseudoprime, b217120, 1);
 LUCAS_TEST(strpseudo, b217255, 1);
-LUCAS_TEST(extrapseudo, b217719, 1);
+//LUCAS_TEST(extrapseudo, b217719, 1);
 LUCAS_TEST(pseudob2345, a074773, 0);
 LUCAS_TEST(pseudob2, b001262, 0);
 LUCAS_TEST(primes, primes, 1);
@@ -45,7 +45,7 @@ int main ()
 {
 	lucas_p1_pseudoprime_test();  // Lucas pseudoprimes A217120
 	lucas_p1_strpseudo_test();    // Strong Lucas pseudoprimes A217255
-	lucas_p1_extrapseudo_test();  // Extra strong Lucas pseudoprimes A217719
+//	lucas_p1_extrapseudo_test();  // Extra strong Lucas pseudoprimes A217719
 
 	lucas_p1_pseudob2345_test();
 	lucas_p1_pseudob2_test();

@@ -30,6 +30,20 @@
 #define _scan_type_size_t    "zu"
 
 
+/* program arguments setup for tests */
+#define test_arguments_setup() \
+	int do_all_tests = 0, do_perf_tests = 0; \
+	char str_all_tests[] = "all", str_perf_tests[] = "perf"; \
+	if (argc > 1) { \
+		if (!strcmp(str_all_tests, argv[1])) do_all_tests = 1; \
+		else if (!strcmp(str_perf_tests, argv[1])) do_perf_tests = 1; \
+	}
+
+#define mandatory_tests if (!do_perf_tests)
+#define extra_tests if ((!do_perf_tests) && do_all_tests)
+#define perf_tests if (do_perf_tests)
+
+
 #define TEST_PASSED "\033[32mPassed\033[39m"
 #define TEST_FAILED "\033[31mFailed\033[39m"
 
