@@ -21,7 +21,10 @@
 	\
 	TRUE_TEST_FN(function, uint64_t, b049002, p2_2); \
 	TRUE_TEST_FN(function, uint64_t, b056130, palb24); \
-	TRUE_TEST_FN(function, uint64_t, b272061, sigtp);
+	TRUE_TEST_FN(function, uint64_t, b272061, sigtp); \
+	TRUE_TEST_FN(function, uint64_t, b077798, palwing); \
+	TRUE_TEST_FN(function, uint64_t, b005109, pierpont); \
+	TRUE_TEST_FN(function, uint64_t, b037896, k4_1);
 
 
 #define prime_specific_value_tests(function) \
@@ -38,9 +41,12 @@
 
 #define prime_other_tests(function) \
 	do { \
-		function##_p2_2_test();   /* A049002 (oeis.org) */ \
-		function##_palb24_test(); /* A056130 (oeis.org) */ \
-		function##_sigtp_test();  /* A272061 (oeis.org) */ \
+		function##_p2_2_test();     /* A049002 (oeis.org) */ \
+		function##_palb24_test();   /* A056130 (oeis.org) */ \
+		function##_sigtp_test();    /* A272061 (oeis.org) */ \
+		function##_palwing_test();  /* A077798 (oeis.org) */ \
+		function##_pierpont_test(); /* A005109 (oeis.org) */ \
+		function##_k4_1_test();     /* A037896 (oeis.org) */ \
 	} while (0)
 
 
