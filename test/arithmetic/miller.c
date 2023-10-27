@@ -10,7 +10,8 @@ int main(int argc, char **argv)
 
 	mandatory_tests {
 		dc_miller_set_test();      // Values 0 to 1299709
-		prime_specific_value_tests(dc_miller);
+		pseudoprime_tests(dc_miller);
+		prime_corner_case_tests(dc_miller);
 		prime_other_tests(dc_miller);
 	}
 

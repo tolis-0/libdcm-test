@@ -11,7 +11,8 @@ int main(int argc, char **argv)
 
 	mandatory_tests {
 		dc_prime_set_test();      // Values 0 to 1299709
-		prime_specific_value_tests(dc_prime);
+		pseudoprime_tests(dc_prime);
+		prime_corner_case_tests(dc_prime);
 		prime_other_tests(dc_prime);
 	}
 

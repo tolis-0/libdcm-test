@@ -10,7 +10,8 @@ int main(int argc, char **argv)
 
 	mandatory_tests {
 		dc_bpsw_set_test();      // Values 0 to 1299709
-		prime_specific_value_tests(dc_bpsw);
+		pseudoprime_tests(dc_bpsw);
+		prime_corner_case_tests(dc_bpsw);
 		prime_other_tests(dc_bpsw);
 	}
 
