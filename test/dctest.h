@@ -8,6 +8,7 @@
 #include <inttypes.h>
 
 
+#define dsc_msk(d, x) if ((d & x) == x)
 #define  _to_string(x...) #x
 
 #define _print_type(type) "%" _print_type_##type

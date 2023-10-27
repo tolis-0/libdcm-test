@@ -6,8 +6,6 @@
 #pragma GCC diagnostic ignored "-Wunused-but-set-variable"
 #pragma GCC diagnostic ignored "-Wunused-variable"
 
-#define dsc_msk(d, x) if ((d & x) == x)
-
 /*
  *	Function Description:
  *
