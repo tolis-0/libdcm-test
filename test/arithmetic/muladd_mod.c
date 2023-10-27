@@ -3,20 +3,19 @@
 #include <stdlib.h>
 #include <string.h>
 
-
-GMP_TEST_BEGIN(mul_mod)
+GMP_TEST_BEGIN(mul_mod, 0b1010)
 mpz_mul(gmp_r, gmp_a, gmp_b);
 mpz_mod(gmp_r, gmp_r, gmp_m);
 r = dc_mul_mod(a, b, m);
-GMP_TEST_END(mul_mod)
+GMP_TEST_END(mul_mod, 0b1010)
 
 
-GMP_TEST_BEGIN(muladd_mod)
+GMP_TEST_BEGIN(muladd_mod, 0b1110)
 mpz_mul(gmp_r, gmp_a, gmp_b);
 mpz_add(gmp_r, gmp_r, gmp_c);
 mpz_mod(gmp_r, gmp_r, gmp_m);
 r = dc_muladd_mod(a, b, c, m);
-GMP_TEST_END(muladd_mod)
+GMP_TEST_END(muladd_mod, 0b1110)
 
 
 void muladd_mod_performance (uint64_t total, uint32_t bits);
