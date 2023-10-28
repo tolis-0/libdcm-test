@@ -45,7 +45,7 @@
 
 
 #define GMP_TEST_END(func, desc) \
-			expected = mpz_get_ui(gmp_r); \
+			if (!(desc & 0b10000)) expected = mpz_get_ui(gmp_r); \
 			dsc_msk(desc, 0b0001) expected2 = mpz_get_ui(gmp_r2); \
 			j = snprintf(input, n, "%"PRIu64, a), n = 100 - j; \
 			dsc_msk(desc, 0b1000) \
