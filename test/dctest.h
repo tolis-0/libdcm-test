@@ -96,7 +96,7 @@
 
 #define _test_file_open(fp, filename) \
 	do { \
-		fp = fopen(_to_string(data/filename.txt), "r"); \
+		fp = fopen("../data/" _to_string(filename) ".txt", "r"); \
 		if (fp == NULL) { \
 			perror(_to_string(Failed to open filename.txt)); \
 			return; \
