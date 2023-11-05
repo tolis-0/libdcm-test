@@ -61,7 +61,7 @@ void dc_fib_mod_test(int t, uint64_t n, uint64_t f_0, uint64_t f_1, uint64_t m)
 		f_0 = f_1;
 		f_1 = tmp;
 		output = dc_fib_mod(n, m);
-		_test_check(uint64_t, uint64_t, n, f_1, output);
+		_test_check2(uint64_t, uint64_t, uint64_t, n, m, f_1, output);
 	}
 
 	_print_test_result2(dc_fib_mod, , i, passed,

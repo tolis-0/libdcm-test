@@ -94,6 +94,19 @@
 		} \
 	} while (0)
 
+#define _test_check2(in_type, in_type2, out_type, input, input2, expected, got) \
+	do { \
+		if (expected == got) { \
+			passed++; \
+		} else { \
+			printf("at input " _print_type(in_type) \
+					", " _print_type(in_type2) \
+					": expected " _print_type(out_type) \
+					", got " _print_type(out_type) "\n", \
+				input, input2, expected, got); \
+		} \
+	} while (0)
+
 #define _test_file_open(fp, filename) \
 	do { \
 		fp = fopen("../data/" _to_string(filename) ".txt", "r"); \
