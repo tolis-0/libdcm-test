@@ -10,7 +10,7 @@ int main(int argc, char **argv)
 	test_arguments_setup();
 
 	mandatory_tests {
-		dc_pisano_sequence_test(); // Values 0 to 10000
+		dc_pisano_sequence_test(); // Values 1 to 10000
 	}
 
 	extra_tests {
