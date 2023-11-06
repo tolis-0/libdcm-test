@@ -1,5 +1,5 @@
-#include <stdlib.h>
 #include "../../test/dctest.h"
+#include <stdlib.h>
 #include "gmp.h"
 
 void mpz_probab_prime_p_performance (uint64_t total, uint32_t bits) {

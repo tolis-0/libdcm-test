@@ -9,7 +9,7 @@
 /*
  *	Function Description:
  *
- *	form 0bABCD (binary number)
+ *	form 0bEABCD (binary number)
  *	AB:	number of standard inputs (a, b, c)
  *	C:	division/modulo input (m)
  *	D:	extra output (r2)
