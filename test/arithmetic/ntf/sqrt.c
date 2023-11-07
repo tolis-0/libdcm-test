@@ -23,12 +23,12 @@ int main (int argc, char **argv)
 
 	extra_tests {
 		for (i = 4; i <= 64; i++)
-			dc_sqrt_test(2500000, i);
+			dc_sqrt_test(10000000, i);
 	}
 
 	perf_tests {
 		for (i = 1; i <= 64; i++)
-			sqrt_performance(100000, i);
+			sqrt_performance(1000000, i);
 	}
 
 	return 0;
@@ -72,7 +72,7 @@ void sqrt_performance (int total, uint32_t bits)
 	for (i = 0; i < total; i++)
 		a = dc_sqrt(input[i]);
 	end = clock();
-	
+
 	free(input);
 
 	printf("%lf (seconds) (dc_sqrt %"PRIu32"bit)\n",

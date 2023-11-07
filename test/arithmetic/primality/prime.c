@@ -16,8 +16,12 @@ GMP_TEST_END(dc_prime, 0b10100)
 
 int main(int argc, char **argv)
 {
-	int i;
+	int i, perf_test_p = 0;
 	test_arguments_setup();
+
+	if (argc > 2) {
+		if (!strcmp("p", argv[2])) perf_test_p = 1;
+	}
 
 	mandatory_tests {
 		dc_prime_set_test();      // Values 0 to 1299709
@@ -33,8 +37,13 @@ int main(int argc, char **argv)
 	}
 
 	perf_tests {
-		for (int i = 1; i <= 64; i++)
-			dc_prime_performance(100000, i);
+		if (perf_test_p) {
+			for (int i = 2; i <= 64; i++)
+				dc_prime_p_performance(100000, i);
+		} else {
+			for (int i = 1; i <= 64; i++)
+				dc_prime_performance(100000, i);
+		}
 	}
 
 	return 0;

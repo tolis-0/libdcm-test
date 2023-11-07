@@ -91,7 +91,35 @@
 		\
 		printf("%lf (seconds) (" _to_string(func) " %"PRIu32"bit)\n", \
 			(double) (end - start)/CLOCKS_PER_SEC, bits); \
-	}
+	} \
+	\
+	void func##_p_performance (uint64_t total, uint32_t bits) { \
+		uint64_t i, *input, a; \
+		clock_t start, end; \
+		\
+		if (bits < 2) { \
+			fprintf(stderr, "There is no prime with %u bits\n", bits); \
+			return; \
+		} \
+		\
+		set_rand(); \
+		input = (uint64_t *) malloc(total * sizeof(uint64_t)); \
+		\
+		for (i = 0; i < total; i++) { \
+			do { \
+				input[i] = (rand_bit(bits) | 1); \
+			} while (!func(input[i])); \
+		} \
+		\
+		start = clock(); \
+		for (i = 0; i < total; i++) \
+			a = func(input[i]); \
+		end = clock(); \
+		free(input); \
+		\
+		printf("%lf (seconds) (" _to_string(func) " %"PRIu32"bit)\n", \
+			(double) (end - start)/CLOCKS_PER_SEC, bits); \
+	} \
 
 
 #endif // _PRIME_TEST_H

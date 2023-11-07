@@ -36,10 +36,9 @@
 	_Pragma("GCC diagnostic push") \
 	_Pragma("GCC diagnostic ignored \"-Wunused-but-set-variable\"") \
 	int do_all_tests = 0, do_perf_tests = 0; \
-	char str_all_tests[] = "all", str_perf_tests[] = "perf"; \
 	if (argc > 1) { \
-		if (!strcmp(str_all_tests, argv[1])) do_all_tests = 1; \
-		else if (!strcmp(str_perf_tests, argv[1])) do_perf_tests = 1; \
+		if (!strcmp("all", argv[1])) do_all_tests = 1; \
+		else if (!strcmp("perf", argv[1])) do_perf_tests = 1; \
 	} \
 	_Pragma("GCC diagnostic pop")
 
