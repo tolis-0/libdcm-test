@@ -11,7 +11,7 @@ mpz_mod(gmp_r, gmp_r, gmp_m);
 r = dc_add_mod(a, b, m);
 GMP_TEST_END(add_mod, 0b1010)
 
-MODULO_PERFORMANCE_START(add_mod, 0b1010)
+MODULO_PERFORMANCE_START(add_mod, 0b1010, 0)
 output = dc_add_mod(a[i], b[i], m[i]);
 MODULO_PERFORMANCE_END(add_mod, 0b1010)
 

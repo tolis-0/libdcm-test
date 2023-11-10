@@ -18,7 +18,7 @@ mpz_mod(gmp_r, gmp_r, gmp_m);
 r = dc_muladd_mod(a, b, c, m);
 GMP_TEST_END(muladd_mod, 0b1110)
 
-MODULO_PERFORMANCE_START(muladd_mod, 0b1110)
+MODULO_PERFORMANCE_START(muladd_mod, 0b1110, 0)
 output = dc_muladd_mod(a[i], b[i], c[i], m[i]);
 MODULO_PERFORMANCE_END(muladd_mod, 0b1110)
 
