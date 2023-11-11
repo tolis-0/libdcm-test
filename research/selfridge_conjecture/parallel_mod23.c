@@ -1,20 +1,22 @@
 #include <stdio.h>
 #include <dcmath.h>
 #include <gmp.h>
+#include <omp.h>
 #include <stdint.h>
 #include <signal.h>
 #include <stdlib.h>
 
-void sigint_handler (int sigid);
+#define task_size 1000
 
-uint64_t n, tested, valid = 0;
-FILE *fp;
+void sigint_handler (int sigid);
+uint64_t test_values (uint64_t n);
+
+int run = 1;
 
 int main ()
 {
-	uint64_t rem;
-	int gmp_outp, dc_outp, sc_outp;
-	mpz_t gmp_n;
+	FILE *fp;
+	uint64_t n, tested;
 
 	if (signal(SIGINT, sigint_handler) == SIG_ERR) {
 		fprintf(stderr, "Error setting handler for SIGINT\n");
@@ -26,20 +28,51 @@ int main ()
 		printf("File not Found, starting from 1\n");
 		n = 1;
 	} else {
-		fscanf(fp, "%llu", &n);
+		fscanf(fp, "%lu", &n);
 		fclose(fp);
 	}
-
-	tested = 0;
 
 	if ((n & 1) == 0) {
 		fprintf(stderr, "Even input (invalid)\n");
 		return 1;
 	}
 
-	mpz_init_set_ui(gmp_n, n);
+	#pragma omp parallel
+	#pragma omp single
+	for (tested = 0; run; n += task_size) {
 
-	for (valid = 1;; n += 2) {
+		#pragma omp task
+		tested += test_values(n);
+
+	}
+
+	putchar('\n');
+
+	fp = fopen("sc.txt", "w");
+	fprintf(fp, "%lu\n", n);
+	fclose(fp);
+
+	fp = fopen("history.txt", "a");
+	fprintf(fp, "%lu\n", n);
+	fclose(fp);
+
+	printf("Current Value: %lu\n", n);
+	printf("Tests:         %lu\n", tested);
+
+	return 0;
+}
+
+
+uint64_t test_values (uint64_t n)
+{
+	mpz_t gmp_n;
+	int gmp_outp, dc_outp, sc_outp;
+	uint64_t limit, rem, tested;
+
+	mpz_init_set_ui(gmp_n, n);
+	limit = n + task_size;
+
+	for (tested = 0; n < limit; n += 2) {
 
 		rem = n % 5;
 		if (rem != 2 && rem != 3) goto next_value;
@@ -52,16 +85,19 @@ int main ()
 
 		/* cross-check dc_prime and mpz_probab_prime */
 		if (gmp_outp != dc_outp) {
-			printf("input: %llu, dc: %d, gmp: %d\n", n, dc_outp, gmp_outp);
-			break;
+			fprintf(stderr, "input: %lu, dc: %d, gmp: %d\n",
+				n, dc_outp, gmp_outp);
 		}
 
 		sc_outp = dc_selfridge_conjecture(n);
 
 		/* cross-check with dc_selfridge_conjecture */
 		if (sc_outp != dc_outp) {
-			printf("input: %llu, others: %d, sc: %d\n", n, dc_outp, sc_outp);
-		} else tested++;
+			fprintf(stderr, "input: %lu, others: %d, sc: %d\n",
+				n, dc_outp, sc_outp);
+		} else {
+			tested++;
+		}
 
 next_value:
 		mpz_add_ui(gmp_n, gmp_n, 2);
@@ -69,22 +105,11 @@ next_value:
 
 	mpz_clear(gmp_n);
 
-	return 0;
+	return tested;
 }
 
 
 void sigint_handler (int sigid)
 {
-	putchar('\n');
-	if (valid) {
-		fp = fopen("sc.txt", "w");
-		fprintf(fp, "%llu\n", n);
-		fclose(fp);
-		printf("Current Value: %llu\n", n);
-		printf("Tests:         %llu\n", tested);
-	} else {
-		printf("Stopped early with SIGINT\n");
-	}
-
-	exit(0);
+	if (sigid == SIGINT) run = 0;
 }
