@@ -23,7 +23,7 @@ output = dc_muladd_mod(a[i], b[i], c[i], m[i]);
 MODULO_PERFORMANCE_END(muladd_mod, 0b1110)
 
 
-int main(int argc, char **argv)
+int main (int argc, char **argv)
 {
 	int i, j;
 	test_arguments_setup();

@@ -18,7 +18,8 @@ MODULO_PERFORMANCE_START(even_exp_mod, 0b1010, 2)
 output = dc_exp_mod(a[i], b[i], m[i]);
 MODULO_PERFORMANCE_END(even_exp_mod, 0b1010)
 
-int main(int argc, char **argv)
+
+int main (int argc, char **argv)
 {
 	int i, j;
 	test_arguments_setup();

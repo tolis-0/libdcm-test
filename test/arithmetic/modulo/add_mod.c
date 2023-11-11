@@ -16,7 +16,7 @@ output = dc_add_mod(a[i], b[i], m[i]);
 MODULO_PERFORMANCE_END(add_mod, 0b1010)
 
 
-int main(int argc, char **argv)
+int main (int argc, char **argv)
 {
 	int i, j;
 	test_arguments_setup();
