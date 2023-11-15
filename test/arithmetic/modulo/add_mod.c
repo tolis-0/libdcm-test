@@ -5,11 +5,11 @@
 #include <string.h>
 
 
-GMP_TEST_BEGIN(add_mod, 0b1010)
+GMP_TEST_BEGIN(add_mod, 	u,u,x, u, u,x,x, 0)
 mpz_add(gmp_r, gmp_a, gmp_b);
 mpz_mod(gmp_r, gmp_r, gmp_m);
 r = dc_add_mod(a, b, m);
-GMP_TEST_END(add_mod, 0b1010)
+GMP_TEST_END(add_mod,		u,u,x, u, u,x,x, 0)
 
 MODULO_PERFORMANCE_START(add_mod, 0b1010, 0)
 output = dc_add_mod(a[i], b[i], m[i]);

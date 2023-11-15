@@ -4,27 +4,28 @@
 #include <string.h>
 #include <time.h>
 
-GMP_TEST_BEGIN(gcd, 0b1000)
+
+GMP_TEST_BEGIN(dc_gcd,		u,u,x, x, u,x,x, 0)
 mpz_gcd(gmp_r, gmp_a, gmp_b);
 r = dc_gcd(a, b);
-GMP_TEST_END(gcd, 0b1000)
+GMP_TEST_END(dc_gcd,		u,u,x, x, u,x,x, 0)
 
 void gcd_performance (int total, uint32_t bits);
 
 
 int main (int argc, char **argv)
 {
-	int i, j;
+	int i;
 	test_arguments_setup();
 
 	mandatory_tests {
 		for (i = 1; i <= 64; i++)
-			gcd_gmp_test(25000, i, 0);
+			dc_gcd_gmp_test(25000, i, 0);
 	}
 
 	extra_tests {
 		for (i = 1; i <= 64; i++)
-			gcd_gmp_test(1000000, i, 0);
+			dc_gcd_gmp_test(1000000, i, 0);
 	}
 
 	perf_tests {
@@ -39,7 +40,7 @@ int main (int argc, char **argv)
 void gcd_performance (int total, uint32_t bits)
 {
 	int i;
-	uint64_t *input1, *input2, a;
+	uint64_t *input1, *input2, __attribute__((unused)) a;
 	clock_t start, end;
 
 	set_rand();

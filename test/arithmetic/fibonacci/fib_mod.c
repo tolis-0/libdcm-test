@@ -9,11 +9,11 @@
 
 #pragma GCC diagnostic ignored "-Wunused-but-set-variable"
 
-GMP_TEST_BEGIN(fib_mod, 0b0010)
+GMP_TEST_BEGIN(dc_fib_mod, 	u,x,x, u, u,x,x, 0)
 mpz_fib_ui(gmp_r, a);
 mpz_mod(gmp_r, gmp_r, gmp_m);
 r = dc_fib_mod(a, m);
-GMP_TEST_END(fib_mod, 0b0010)
+GMP_TEST_END(dc_fib_mod, 	u,x,x, u, u,x,x, 0)
 
 void dc_fib_mod_test(int t, uint64_t n_start, uint64_t f_0, uint64_t f_1, uint64_t m);
 void dc_fib_mod_performance (uint64_t total, uint32_t bits, uint32_t divbits);
@@ -26,11 +26,11 @@ int main(int argc, char **argv)
 
 	mandatory_tests {
 		for (i = 1; i <= 64; i++) {
-				fib_mod_gmp_test(50000, 4, i);
-				fib_mod_gmp_test(20000, 8, i);
-				fib_mod_gmp_test(5000, 12, i);
-				fib_mod_gmp_test(2000, 16, i);
-				fib_mod_gmp_test(200, 20, i);
+				dc_fib_mod_gmp_test(50000, 4, i);
+				dc_fib_mod_gmp_test(20000, 8, i);
+				dc_fib_mod_gmp_test(5000, 12, i);
+				dc_fib_mod_gmp_test(2000, 16, i);
+				dc_fib_mod_gmp_test(200, 20, i);
 		}
 
 		dc_fib_mod_test(MAND_N, 103948543, 8273437, 99265733, 100000000);
@@ -47,11 +47,11 @@ int main(int argc, char **argv)
 
 	extra_tests {
 		for (i = 1; i <= 64; i++) {
-				fib_mod_gmp_test(1000000, 4, i);
-				fib_mod_gmp_test(500000, 8, i);
-				fib_mod_gmp_test(50000, 12, i);
-				fib_mod_gmp_test(20000, 16, i);
-				fib_mod_gmp_test(5000, 20, i);
+				dc_fib_mod_gmp_test(1000000, 4, i);
+				dc_fib_mod_gmp_test(500000, 8, i);
+				dc_fib_mod_gmp_test(50000, 12, i);
+				dc_fib_mod_gmp_test(20000, 16, i);
+				dc_fib_mod_gmp_test(5000, 20, i);
 		}
 	}
 

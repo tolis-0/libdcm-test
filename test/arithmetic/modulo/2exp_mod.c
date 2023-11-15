@@ -6,10 +6,10 @@
 
 mpz_t gmp_2;
 
-GMP_TEST_BEGIN(_2exp_mod, 0b0010)
+GMP_TEST_BEGIN(_2exp_mod, 	u,x,x, u, u,x,x, 0)
 mpz_powm(gmp_r, gmp_2, gmp_a, gmp_m);
 r = dc_2exp_mod(a, m);
-GMP_TEST_END(_2exp_mod, 0b0010)
+GMP_TEST_END(_2exp_mod, 	u,x,x, u, u,x,x, 0)
 
 MODULO_PERFORMANCE_START(odd_2exp_mod, 0b0010, 1)
 output = dc_2exp_mod(a[i], m[i]);

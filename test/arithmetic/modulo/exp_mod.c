@@ -5,10 +5,10 @@
 #include <string.h>
 
 
-GMP_TEST_BEGIN(exp_mod, 0b1010)
+GMP_TEST_BEGIN(exp_mod,		u,u,x, u, u,x,x, 0)
 mpz_powm(gmp_r, gmp_a, gmp_b, gmp_m);
 r = dc_exp_mod(a, b, m);
-GMP_TEST_END(exp_mod, 0b1010)
+GMP_TEST_END(exp_mod,		u,u,x, u, u,x,x, 0)
 
 MODULO_PERFORMANCE_START(odd_exp_mod, 0b1010, 1)
 output = dc_exp_mod(a[i], b[i], m[i]);

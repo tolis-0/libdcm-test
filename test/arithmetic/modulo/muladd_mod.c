@@ -5,18 +5,18 @@
 #include <string.h>
 
 
-GMP_TEST_BEGIN(mul_mod, 0b1010)
+GMP_TEST_BEGIN(mul_mod,		u,u,x, u, u,x,x, 0)
 mpz_mul(gmp_r, gmp_a, gmp_b);
 mpz_mod(gmp_r, gmp_r, gmp_m);
 r = dc_mul_mod(a, b, m);
-GMP_TEST_END(mul_mod, 0b1010)
+GMP_TEST_END(mul_mod,		u,u,x, u, u,x,x, 0)
 
-GMP_TEST_BEGIN(muladd_mod, 0b1110)
+GMP_TEST_BEGIN(muladd_mod,	u,u,u, u, u,x,x, 0)
 mpz_mul(gmp_r, gmp_a, gmp_b);
 mpz_add(gmp_r, gmp_r, gmp_c);
 mpz_mod(gmp_r, gmp_r, gmp_m);
 r = dc_muladd_mod(a, b, c, m);
-GMP_TEST_END(muladd_mod, 0b1110)
+GMP_TEST_END(muladd_mod,	u,u,u, u, u,x,x, 0)
 
 MODULO_PERFORMANCE_START(muladd_mod, 0b1110, 0)
 output = dc_muladd_mod(a[i], b[i], c[i], m[i]);

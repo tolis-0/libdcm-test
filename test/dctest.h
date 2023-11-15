@@ -8,7 +8,7 @@
 #include <inttypes.h>
 
 
-#define dsc_msk(d, x) if ((d & x) == x)
+
 #define  _to_string(x...) #x
 
 #define _print_type(type) "%" _print_type_##type
@@ -29,6 +29,7 @@
 #define _scan_type_int64_t   SCNd64
 #define _scan_type_int       "d"
 #define _scan_type_size_t    "zu"
+
 
 
 /* program arguments setup for tests */
