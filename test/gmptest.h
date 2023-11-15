@@ -41,8 +41,7 @@
 
 #define GMP_TEST_BEGIN(func, _a, _b, _c, _m, _r, _r1, _r2, r_exp) \
 	void func##_gmp_test (int total, uint32_t bits, uint32_t div_bits) { \
-		int i, j, n = 256, passed; \
-		char buffer[256]; \
+		int i, passed; \
 		\
 		_a##_tvar_int a; \
 		_b##_tvar_int b; \
@@ -96,41 +95,22 @@
 			if (_r1##_tvar_use) expected1 = mpz_get_ui(gmp_r1); \
 			if (_r2##_tvar_use) expected2 = mpz_get_ui(gmp_r2); \
 			\
-			j = 0; \
-			_Pragma("GCC diagnostic push") \
-			_Pragma("GCC diagnostic ignored \"-Wformat-zero-length\"") \
-			if (_a##_tvar_use) \
-				gmpt_sprintf_helper(_a##_tvar_prt(), a); \
-			\
-			if ((_a##_tvar_use) && (_b##_tvar_use)) \
-				gmpt_sprintf_helper(", "); \
-			if (_b##_tvar_use) \
-				gmpt_sprintf_helper(_b##_tvar_prt(), b); \
-			\
-			if (((_a##_tvar_use) || (_b##_tvar_use)) && (_c##_tvar_use)) \
-				gmpt_sprintf_helper(", "); \
-			if (_c##_tvar_use) \
-				gmpt_sprintf_helper(_c##_tvar_prt(), c); \
-			\
-			if (((_a##_tvar_use) || (_b##_tvar_use) || (_c##_tvar_use)) \
-				&& (_m##_tvar_use)) \
-				gmpt_sprintf_helper(", "); \
-			if (_m##_tvar_use) \
-				gmpt_sprintf_helper(_m##_tvar_prt(), m); \
-			_Pragma("GCC diagnostic pop") \
-			\
 			if ((expected == r) && \
 				((_r1##_tvar_use) ? (expected1 == r1) : 1) && \
 				((_r2##_tvar_use) ? (expected2 == r2) : 1)) { \
 				passed++; \
 			} else { \
-				printf("At %s" \
+				printf("At " _a##_tvar_prt() _b##_tvar_prt(",") \
+						_c##_tvar_prt(",") _m##_tvar_prt(",") \
 						": Expected " _r##_tvar_prt() \
 						_r1##_tvar_prt(",") _r2##_tvar_prt(",") \
 						". Got " _r##_tvar_prt() \
 						_r1##_tvar_prt(",") _r2##_tvar_prt(",") \
-						"\n", \
-					buffer \
+						"\n" \
+					_a##_tvar_arg(a) \
+					_b##_tvar_arg(b) \
+					_c##_tvar_arg(c) \
+					_m##_tvar_arg(m) \
 					_r##_tvar_arg(expected) \
 					_r1##_tvar_arg(expected1) \
 					_r2##_tvar_arg(expected2) \
