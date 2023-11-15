@@ -100,13 +100,20 @@
 				((_r2##_tvar_use) ? (expected2 == r2) : 1)) { \
 				passed++; \
 			} else { \
-				printf("At " _a##_tvar_prt() _b##_tvar_prt(",") \
-						_c##_tvar_prt(",") _m##_tvar_prt(",") \
-						": Expected " _r##_tvar_prt() \
-						_r1##_tvar_prt(",") _r2##_tvar_prt(",") \
-						". Got " _r##_tvar_prt() \
-						_r1##_tvar_prt(",") _r2##_tvar_prt(",") \
-						"\n" \
+				printf("At " \
+					_a##_tvar_prt() \
+					_b##_tvar_prt(",") \
+					_c##_tvar_prt(",") \
+					_m##_tvar_prt(",") \
+					": Expected " \
+					_r##_tvar_prt() \
+					_r1##_tvar_prt(",") \
+					_r2##_tvar_prt(",") \
+					". Got " \
+					_r##_tvar_prt() \
+					_r1##_tvar_prt(",") \
+					_r2##_tvar_prt(",") \
+					"\n" \
 					_a##_tvar_arg(a) \
 					_b##_tvar_arg(b) \
 					_c##_tvar_arg(c) \

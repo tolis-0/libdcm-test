@@ -36,15 +36,16 @@
 #define test_arguments_setup() \
 	_Pragma("GCC diagnostic push") \
 	_Pragma("GCC diagnostic ignored \"-Wunused-but-set-variable\"") \
-	int do_all_tests = 0, do_perf_tests = 0; \
+	int do_extra_tests = 0, do_perf_tests = 0; \
 	if (argc > 1) { \
-		if (!strcmp("all", argv[1])) do_all_tests = 1; \
-		else if (!strcmp("perf", argv[1])) do_perf_tests = 1; \
+		if 		(!strcmp("all", argv[1])) 	do_extra_tests = 1; \
+		else if (!strcmp("perf", argv[1])) 	do_perf_tests = 1; \
 	} \
 	_Pragma("GCC diagnostic pop")
 
 #define mandatory_tests if (!do_perf_tests)
-#define extra_tests if ((!do_perf_tests) && do_all_tests)
+#define quick_tests if ((!do_perf_tests) && !(do_extra_tests))
+#define extra_tests if ((!do_perf_tests) && do_extra_tests)
 #define perf_tests if (do_perf_tests)
 
 

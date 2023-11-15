@@ -7,7 +7,6 @@
 #define MAND_N  200000
 #define EXTRA_N 2000000
 
-#pragma GCC diagnostic ignored "-Wunused-but-set-variable"
 
 GMP_TEST_BEGIN(dc_fib_mod, 	u,x,x, u, u,x,x, 0)
 mpz_fib_ui(gmp_r, a);
@@ -25,14 +24,6 @@ int main(int argc, char **argv)
 	test_arguments_setup();
 
 	mandatory_tests {
-		for (i = 1; i <= 64; i++) {
-				dc_fib_mod_gmp_test(50000, 4, i);
-				dc_fib_mod_gmp_test(20000, 8, i);
-				dc_fib_mod_gmp_test(5000, 12, i);
-				dc_fib_mod_gmp_test(2000, 16, i);
-				dc_fib_mod_gmp_test(200, 20, i);
-		}
-
 		dc_fib_mod_test(MAND_N, 103948543, 8273437, 99265733, 100000000);
 		dc_fib_mod_test(MAND_N, 207897089, 32316189, 56812120, 100000000);
 		dc_fib_mod_test(MAND_N, 1002344234, 59238737, 73373890, 100000000);
@@ -45,13 +36,25 @@ int main(int argc, char **argv)
 		dc_fib_mod_test(MAND_N, 3804736455, 5137179646, 11398095651, 15523659327);
 	}
 
+	quick_tests {
+		dc_fib_mod_gmp_test(20000, 4, 1);
+		dc_fib_mod_gmp_test(10, 20, 1);
+		for (i = 8; i <= 64; i += 8) {
+			dc_fib_mod_gmp_test(20000, 4, i);
+			dc_fib_mod_gmp_test(10000, 8, i);
+			dc_fib_mod_gmp_test(5000, 12, i);
+			dc_fib_mod_gmp_test(250, 16, i);
+			dc_fib_mod_gmp_test(50, 20, i);
+		}
+	}
+
 	extra_tests {
 		for (i = 1; i <= 64; i++) {
-				dc_fib_mod_gmp_test(1000000, 4, i);
-				dc_fib_mod_gmp_test(500000, 8, i);
-				dc_fib_mod_gmp_test(50000, 12, i);
-				dc_fib_mod_gmp_test(20000, 16, i);
-				dc_fib_mod_gmp_test(5000, 20, i);
+			dc_fib_mod_gmp_test(1000000, 4, i);
+			dc_fib_mod_gmp_test(500000, 8, i);
+			dc_fib_mod_gmp_test(50000, 12, i);
+			dc_fib_mod_gmp_test(20000, 16, i);
+			dc_fib_mod_gmp_test(5000, 20, i);
 		}
 	}
 
@@ -92,7 +95,7 @@ void dc_fib_mod_test(int t, uint64_t n, uint64_t f_0, uint64_t f_1, uint64_t m)
 
 
 void dc_fib_mod_performance (uint64_t total, uint32_t bits, uint32_t divbits) {
-	uint64_t i, *a, *m, output;
+	uint64_t i, *a, *m, __attribute__((unused)) output;
 	clock_t start, end;
 
 	set_rand();

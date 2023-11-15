@@ -13,6 +13,10 @@ int main(int argc, char **argv)
 		dc_pisano_sequence_test(); // Values 1 to 10000
 	}
 
+	quick_tests {
+
+	}
+
 	extra_tests {
 
 	}
