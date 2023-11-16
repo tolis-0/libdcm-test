@@ -4,33 +4,6 @@
 #include <gmp.h>
 
 
-
-#define u_tvar_use 1
-#define s_tvar_use 1
-#define x_tvar_use 0
-#define b_tvar_use 1
-
-#define u_tvar_arg(x) , x
-#define s_tvar_arg(x) , x
-#define x_tvar_arg(x)
-#define b_tvar_arg(x) , x
-
-#define u_tvar_prt(x) x "%"PRIu64
-#define s_tvar_prt(x) x "%"PRId64
-#define x_tvar_prt(x) ""
-#define b_tvar_prt(x) x "%d"
-
-#define u_tvar_mpz mpz_t
-#define s_tvar_mpz mpz_t
-#define x_tvar_mpz __attribute__((unused)) mpz_t
-#define b_tvar_mpz mpz_t
-
-#define u_tvar_int uint64_t
-#define s_tvar_int int64_t
-#define x_tvar_int __attribute__((unused)) uint64_t
-#define b_tvar_int int
-
-
 #define gmpt_sprintf_helper(format, ...) \
 	do { \
 		j += snprintf(buffer + j, n, format, ##__VA_ARGS__); \
@@ -128,8 +101,13 @@
 			} \
 		} \
 		\
-		_print_test_result2(func, gmp, i, passed, \
-			" %3$"PRIu32"bit %4$"PRIu32"divbit", bits, div_bits); \
+		if (div_bits == 0) { \
+			_print_test_result2(func, gmp, i, passed, \
+				" %3$"PRIu32"bit", bits); \
+		} else { \
+			_print_test_result2(func, gmp, i, passed, \
+				" %3$"PRIu32"bit %4$"PRIu32"divbit", bits, div_bits); \
+		} \
 		\
 		if (_a##_tvar_use) mpz_clear(gmp_a); \
 		if (_b##_tvar_use) mpz_clear(gmp_b); \

@@ -27,7 +27,7 @@ int main (int argc, char **argv)
 
 	mpz_init_set_ui(gmp_2, 2);
 
-	mandatory_tests {
+	quick_tests {
 		for (i = 1; i <= 64; i++)
 			for (j = 8; j <= 64; j += 8)
 				_2exp_mod_gmp_test(25000, j, i);

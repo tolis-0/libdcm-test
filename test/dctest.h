@@ -11,6 +11,7 @@
 
 #define  _to_string(x...) #x
 
+
 #define _print_type(type) "%" _print_type_##type
 #define _print_type_uint32_t PRIu32
 #define _print_type_uint64_t PRIu64
@@ -31,6 +32,59 @@
 #define _scan_type_size_t    "zu"
 
 
+#define TEST_PASSED "\033[32mPassed\033[39m"
+#define TEST_FAILED "\033[31mFailed\033[39m"
+
+
+
+
+#define u_tvar_use 1
+#define s_tvar_use 1
+#define x_tvar_use 0
+#define b_tvar_use 1
+
+#define u_tvar_arg(x) , x
+#define s_tvar_arg(x) , x
+#define x_tvar_arg(x)
+#define b_tvar_arg(x) , x
+
+#define u_tvar_prt(x) x "%"PRIu64
+#define s_tvar_prt(x) x "%"PRId64
+#define x_tvar_prt(x) ""
+#define b_tvar_prt(x) x "%d"
+
+#define u_tvar_mpz mpz_t
+#define s_tvar_mpz mpz_t
+#define x_tvar_mpz __attribute__((unused)) mpz_t
+#define b_tvar_mpz mpz_t
+
+#define u_tvar_int uint64_t
+#define s_tvar_int int64_t
+#define x_tvar_int __attribute__((unused)) uint64_t
+#define b_tvar_int int
+
+#define u_tvar_out __attribute__((unused)) uint64_t
+#define s_tvar_out __attribute__((unused)) int64_t
+#define x_tvar_out __attribute__((unused)) uint64_t
+#define b_tvar_out __attribute__((unused)) int
+
+#define u_tvar_divb(type) , type div_bits
+#define s_tvar_divb(type) , type div_bits
+#define x_tvar_divb(type)
+#define b_tvar_divb(type) , type div_bits
+
+#define u_tvar_divb_cond check_div_bits_value
+#define s_tvar_divb_cond check_div_bits_value
+#define x_tvar_divb_cond
+#define b_tvar_divb_cond check_div_bits_value
+
+#define u_tvar_divb_print " %"PRIu32"divbit"
+#define s_tvar_divb_print " %"PRIu32"divbit"
+#define x_tvar_divb_print
+#define b_tvar_divb_print " %"PRIu32"divbit"
+
+
+
 
 /* program arguments setup for tests */
 #define test_arguments_setup() \
@@ -49,8 +103,7 @@
 #define perf_tests if (do_perf_tests)
 
 
-#define TEST_PASSED "\033[32mPassed\033[39m"
-#define TEST_FAILED "\033[31mFailed\033[39m"
+
 
 #define _print_test_result(function, test_name, all, passed) \
 	_print_test_result2(function, test_name, all, passed, )
@@ -116,6 +169,7 @@
 			return; \
 		} \
 	} while (0)
+
 
 
 
@@ -207,6 +261,78 @@
 		fclose(test_fp); \
 		_print_test_result(function, test_name, i, passed); \
 	}
+
+
+
+
+
+#define PERFORMANCE_TEST_BEGIN(func, _a, _b, _c, _m, _r, _r1, _r2) \
+	void func##_perf_test (int total, uint32_t bits \
+		_m##_tvar_divb(uint32_t)) { \
+		int i; \
+		clock_t start, end; \
+		\
+		_a##_tvar_int *a; \
+		_b##_tvar_int *b; \
+		_c##_tvar_int *c; \
+		_m##_tvar_int *m; \
+		\
+		_r##_tvar_out r; \
+		_r1##_tvar_out r1; \
+		_r2##_tvar_out r2; \
+		\
+		set_rand(); \
+		\
+		_m##_tvar_divb_cond \
+		\
+		if (_a##_tvar_use) a = malloc(total * sizeof(_a##_tvar_int)); \
+		if (_b##_tvar_use) b = malloc(total * sizeof(_b##_tvar_int)); \
+		if (_c##_tvar_use) c = malloc(total * sizeof(_c##_tvar_int)); \
+		if (_m##_tvar_use) m = malloc(total * sizeof(_m##_tvar_int)); \
+		\
+		for (i = 0; i < total; i++) { \
+			if (_a##_tvar_use) a[i] = rand_bit(bits); \
+			if (_b##_tvar_use) b[i] = rand_bit(bits); \
+			if (_c##_tvar_use) c[i] = rand_bit(bits); \
+			_Pragma("GCC diagnostic push") \
+			_Pragma("GCC diagnostic ignored \"-Wunused-value\"") \
+			if (_m##_tvar_use) do { \
+				m[i] = rand_bit((0 _m##_tvar_divb())); \
+			} while (m[i] == 0); \
+			_Pragma("GCC diagnostic pop") \
+		} \
+		\
+		start = clock(); \
+		for (i = 0; i < total; i++) {
+
+
+#define PERFORMANCE_TEST_END(func, _a, _b, _c, _m, _r, _r1, _r2) \
+		} \
+		end = clock(); \
+		\
+		if (_a##_tvar_use) free(a); \
+		if (_b##_tvar_use) free(b); \
+		if (_c##_tvar_use) free(c); \
+		if (_m##_tvar_use) free(m); \
+		\
+		printf("%lf (seconds) " \
+			"(" #func " %"PRIu32"bit" \
+			_m##_tvar_divb_print \
+			")\n", \
+			(double) (end - start)/CLOCKS_PER_SEC, \
+			bits \
+			_m##_tvar_divb() \
+			); \
+	}
+
+
+#define check_div_bits_value \
+	if (div_bits == 0) { \
+		fputs("ERROR: Can't find value for m with 0 div bits", \
+			stderr); \
+		return; \
+	} \
+
 
 
 

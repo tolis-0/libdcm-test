@@ -5,8 +5,6 @@
 #include <stdlib.h>
 
 
-#pragma GCC diagnostic ignored "-Wunused-but-set-variable"
-
 #define PRIME_TEST_DECLARATIONS(function) \
 	SET_TEST_F(function, uint64_t, primes); \
 	SET_TEST_FNS(function, uint64_t, primes26, set26, 472882048); \
@@ -74,7 +72,7 @@
 
 #define PRIME_PERFORMANCE_DECLARATIONS(func) \
 	void func##_performance (uint64_t total, uint32_t bits) { \
-		uint64_t i, *input, a; \
+		uint64_t i, *input, __attribute__((unused)) a; \
 		clock_t start, end; \
 		\
 		set_rand(); \
@@ -94,7 +92,7 @@
 	} \
 	\
 	void func##_p_performance (uint64_t total, uint32_t bits) { \
-		uint64_t i, *input, a; \
+		uint64_t i, *input, __attribute__((unused)) a; \
 		clock_t start, end; \
 		\
 		if (bits < 2) { \

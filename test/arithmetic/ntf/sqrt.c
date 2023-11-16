@@ -5,10 +5,11 @@
 #include <stdlib.h>
 
 
-#pragma GCC diagnostic ignored "-Wunused-but-set-variable"
-
 void dc_sqrt_test(int total, uint32_t bits);
-void sqrt_performance (int total, uint32_t bits);
+
+PERFORMANCE_TEST_BEGIN(dc_sqrt,	u,x,x, x, u,x,x)
+r = dc_sqrt(a[i]);
+PERFORMANCE_TEST_END(dc_sqrt,	u,x,x, x, u,x,x)
 
 
 int main (int argc, char **argv)
@@ -16,7 +17,7 @@ int main (int argc, char **argv)
 	int i;
 	test_arguments_setup();
 
-	mandatory_tests {
+	quick_tests {
 		for (i = 4; i <= 64; i++)
 			dc_sqrt_test(100000, i);
 	}
@@ -28,7 +29,7 @@ int main (int argc, char **argv)
 
 	perf_tests {
 		for (i = 1; i <= 64; i++)
-			sqrt_performance(1000000, i);
+			dc_sqrt_perf_test(1000000, i);
 	}
 
 	return 0;
@@ -53,28 +54,4 @@ void dc_sqrt_test(int total, uint32_t bits)
 
 	_print_test_result2(dc_sqrt, math, i, passed,
 		" bits:%3$"PRIu32, bits);
-}
-
-
-void sqrt_performance (int total, uint32_t bits)
-{
-	int i;
-	uint64_t *input, a;
-	clock_t start, end;
-
-	set_rand();
-	input = (uint64_t *) malloc(total * sizeof(uint64_t));
-
-	for (i = 0; i < total; i++)
-		input[i] = (rand_bit(bits));
-
-	start = clock();
-	for (i = 0; i < total; i++)
-		a = dc_sqrt(input[i]);
-	end = clock();
-
-	free(input);
-
-	printf("%lf (seconds) (dc_sqrt %"PRIu32"bit)\n",
-		(double) (end - start)/CLOCKS_PER_SEC, bits);
 }
