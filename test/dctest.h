@@ -58,6 +58,11 @@
 #define x_tvar_mpz __attribute__((unused)) mpz_t
 #define b_tvar_mpz mpz_t
 
+#define u_tvar_mpz_f(func) mpz_ ## func ## _ui
+#define s_tvar_mpz_f(func) mpz_ ## func ## _si
+#define x_tvar_mpz_f(func) mpz_ ## func ## _ui
+#define b_tvar_mpz_f(func) mpz_ ## func ## _si
+
 #define u_tvar_int uint64_t
 #define s_tvar_int int64_t
 #define x_tvar_int __attribute__((unused)) uint64_t
@@ -261,7 +266,6 @@
 		fclose(test_fp); \
 		_print_test_result(function, test_name, i, passed); \
 	}
-
 
 
 

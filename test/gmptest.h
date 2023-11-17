@@ -57,16 +57,18 @@
 				m = rand_bit(div_bits); \
 			} while (m == 0); \
 			\
-			if (_a##_tvar_use) mpz_set_ui(gmp_a, a); \
-			if (_b##_tvar_use) mpz_set_ui(gmp_b, b); \
-			if (_c##_tvar_use) mpz_set_ui(gmp_c, c); \
-			if (_m##_tvar_use) mpz_set_ui(gmp_m, m);
+			if (_a##_tvar_use) _a##_tvar_mpz_f(set)(gmp_a, a); \
+			if (_b##_tvar_use) _b##_tvar_mpz_f(set)(gmp_b, b); \
+			if (_c##_tvar_use) _c##_tvar_mpz_f(set)(gmp_c, c); \
+			if (_m##_tvar_use) _m##_tvar_mpz_f(set)(gmp_m, m);
 
 
 #define GMP_TEST_END(func, _a, _b, _c, _m, _r, _r1, _r2, r_exp) \
-			if (!r_exp) expected = mpz_get_ui(gmp_r); \
-			if (_r1##_tvar_use) expected1 = mpz_get_ui(gmp_r1); \
-			if (_r2##_tvar_use) expected2 = mpz_get_ui(gmp_r2); \
+			if (!r_exp) expected = _r##_tvar_mpz_f(get)(gmp_r); \
+			if (_r1##_tvar_use) \
+				expected1 = _r1##_tvar_mpz_f(get)(gmp_r1); \
+			if (_r2##_tvar_use) \
+				expected2 = _r2##_tvar_mpz_f(get)(gmp_r2); \
 			\
 			if ((expected == r) && \
 				((_r1##_tvar_use) ? (expected1 == r1) : 1) && \
