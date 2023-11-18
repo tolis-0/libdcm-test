@@ -76,7 +76,7 @@ void dc_2powr_gcd_performance (uint64_t total, unsigned r)
 	clock_t start, end;
 
 	set_rand();
-	n = (uint64_t *) malloc(total * sizeof(uint64_t));
+	n = malloc(total * sizeof(uint64_t));
 
 	for (i = 0; i < total; i++) {
 		bits = (i & 0x3F) + 1;

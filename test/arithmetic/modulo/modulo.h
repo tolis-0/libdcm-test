@@ -8,12 +8,12 @@
 	clock_t start, end; \
 	\
 	set_rand(); \
-	a = (uint64_t *) malloc(total * sizeof(uint64_t)); \
+	a = malloc(total * sizeof(uint64_t)); \
 	if ((desc & 0b1000) == 0b1000) \
-		b = (uint64_t *) malloc(total * sizeof(uint64_t)); \
+		b = malloc(total * sizeof(uint64_t)); \
 	if ((desc & 0b1100) == 0b1100) \
-		c = (uint64_t *) malloc(total * sizeof(uint64_t)); \
-	m = (uint64_t *) malloc(total * sizeof(uint64_t)); \
+		c = malloc(total * sizeof(uint64_t)); \
+	m = malloc(total * sizeof(uint64_t)); \
 	\
 	for (i = 0; i < total; i++) \
 		do { \

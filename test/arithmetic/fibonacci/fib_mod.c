@@ -99,8 +99,8 @@ void dc_fib_mod_performance (uint64_t total, uint32_t bits, uint32_t divbits) {
 	clock_t start, end;
 
 	set_rand();
-	a = (uint64_t *) malloc(total * sizeof(uint64_t));
-	m = (uint64_t *) malloc(total * sizeof(uint64_t));
+	a = malloc(total * sizeof(uint64_t));
+	m = malloc(total * sizeof(uint64_t));
 
 	for (i = 0; i < total; i++) {
 		do {

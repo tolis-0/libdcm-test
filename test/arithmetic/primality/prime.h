@@ -76,7 +76,7 @@
 		clock_t start, end; \
 		\
 		set_rand(); \
-		input = (uint64_t *) malloc(total * sizeof(uint64_t)); \
+		input = malloc(total * sizeof(uint64_t)); \
 		\
 		for (i = 0; i < total; i++) \
 			input[i] = (rand_bit(bits) | 1); \
@@ -101,7 +101,7 @@
 		} \
 		\
 		set_rand(); \
-		input = (uint64_t *) malloc(total * sizeof(uint64_t)); \
+		input = malloc(total * sizeof(uint64_t)); \
 		\
 		for (i = 0; i < total; i++) { \
 			do { \
