@@ -52,7 +52,7 @@ void dc_mul_redc_32_test (int total, int bits)
 
 			c = dc_mul_mod(a, b, N);
 			expected = dc_mul_mod(c, R, N);
-			
+
 			a = dc_mul_mod(a, R, N);
 			b = dc_mul_mod(b, R, N);
 
